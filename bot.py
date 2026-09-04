@@ -40,7 +40,7 @@ warnings = {}
 # HELPER FUNCTIONS
 # ============================================================
 
-def get_font(size, bold=False):
+def get_font(size, bold=True):
     # Select font file based on weight
     font_filename = "arlrdbd.ttf" if bold else "arial.ttf"
     font_path = os.path.join("fonts", font_filename)
