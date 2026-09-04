@@ -41,14 +41,21 @@ warnings = {}
 # ============================================================
 
 def get_font(size, bold=False):
-    # Use explicit custom TTF files uploaded to your GitHub fonts/ folder
-    filename = "Montserrat-ExtraBold.ttf" if bold else "Montserrat-Regular.ttf"
-    font_path = os.path.join("fonts", filename)
+    # Ensure correct capitalization matching your repo files exactly
+    filename = "ARIALBD.TTF" if bold else "ARIAL.TTF"
+    
+    # Get absolute path relative to bot.py directory
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    font_path = os.path.join(base_dir, "fonts", filename)
 
     if os.path.exists(font_path):
-        return ImageFont.truetype(font_path, size)
+        try:
+            return ImageFont.truetype(font_path, size)
+        except Exception as e:
+            print(f"❌ FONT EXECUTION ERROR on '{font_path}': {e}")
+    else:
+        print(f"❌ FONT FILE MISSING: Searching at '{font_path}' — File not found.")
 
-    print(f"❌ COULD NOT FIND: {font_path}")
     return ImageFont.load_default()
     
 def shorten(text, length):
