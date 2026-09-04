@@ -113,7 +113,7 @@ async def create_welcome_card(member):
     draw = ImageDraw.Draw(image)
 
     # Fonts
-    welcome_font = get_font(38, bold=True)
+    welcome_font = get_font(100, bold=True)
     username_font = get_font(34, bold=True)
     details_font = get_font(26, bold=True)
     small_font = get_font(18, bold=False)
