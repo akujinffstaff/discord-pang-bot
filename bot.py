@@ -41,30 +41,14 @@ warnings = {}
 # ============================================================
 
 def get_font(size, bold=False):
-    # Try different common cases for Arial filenames
-    bold_candidates = ["ARIALBD.TTF", "arialbd.ttf", "Arialbd.ttf", "Arial-Bold.ttf"]
-    regular_candidates = ["ARIAL.TTF", "arial.ttf", "Arial.ttf", "Arial-Regular.ttf"]
-    
-    candidates = bold_candidates if bold else regular_candidates
-    
-    # 1. Search in the fonts/ directory
-    for name in candidates:
-        font_path = os.path.join("fonts", name)
-        if os.path.exists(font_path):
-            try:
-                return ImageFont.truetype(font_path, size)
-            except Exception as e:
-                print(f"Failed loading {font_path}: {e}")
+    # Use explicit custom TTF files uploaded to your GitHub fonts/ folder
+    filename = "Montserrat-ExtraBold.ttf" if bold else "Montserrat-Regular.ttf"
+    font_path = os.path.join("fonts", filename)
 
-    # 2. Search root directory as a backup
-    for name in candidates:
-        if os.path.exists(name):
-            try:
-                return ImageFont.truetype(name, size)
-            except Exception as e:
-                print(f"Failed loading {name}: {e}")
+    if os.path.exists(font_path):
+        return ImageFont.truetype(font_path, size)
 
-    print("❌ FONT ERROR: Could not find any valid font file in fonts/ folder!")
+    print(f"❌ COULD NOT FIND: {font_path}")
     return ImageFont.load_default()
     
 def shorten(text, length):
