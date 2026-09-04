@@ -41,8 +41,8 @@ warnings = {}
 # ============================================================
 
 def get_font(size, bold=False):
-    # Specify your exact font file names here (case-sensitive!)
-    filename = "ARIAL.TTF" if bold else "ARIALBD.TTF"
+    # Fixed: Bold maps to ARIALBD.TTF, regular maps to ARIAL.TTF
+    filename = "ARIALBD.TTF" if bold else "ARIAL.TTF"
     font_path = os.path.join("fonts", filename)
 
     # Check if the file actually exists on the server
@@ -55,7 +55,6 @@ def get_font(size, bold=False):
     except Exception as e:
         print(f"❌ FONT LOAD ERROR: Failed to load '{font_path}' - {e}")
         return ImageFont.load_default()
-
 def shorten(text, length):
     if len(text) <= length:
         return text
