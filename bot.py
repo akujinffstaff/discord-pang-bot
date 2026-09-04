@@ -41,14 +41,19 @@ warnings = {}
 # ============================================================
 
 def get_font(size, bold=False):
-    # Select font file based on weight
-    font_filename = "ARIALBD.TTF" if bold else "ARIAL.TTF"
-    font_path = os.path.join("fonts", font_filename)
+    # Specify your exact font file names here (case-sensitive!)
+    filename = "ARIAL.TTF" if bold else "ARIALBD.TTF"
+    font_path = os.path.join("fonts", filename)
+
+    # Check if the file actually exists on the server
+    if not os.path.exists(font_path):
+        print(f"❌ FONT ERROR: Cannot find '{font_path}'. Check capitalization and path on GitHub.")
+        return ImageFont.load_default()
 
     try:
         return ImageFont.truetype(font_path, size)
-    except Exception as error:
-        print(f"Failed to load font '{font_path}': {error}")
+    except Exception as e:
+        print(f"❌ FONT LOAD ERROR: Failed to load '{font_path}' - {e}")
         return ImageFont.load_default()
 
 def shorten(text, length):
