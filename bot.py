@@ -41,20 +41,32 @@ warnings = {}
 # ============================================================
 
 def get_font(size, bold=False):
-    # Fixed: Bold maps to ARIALBD.TTF, regular maps to ARIAL.TTF
-    filename = "ARIALBD.TTF" if bold else "ARIAL.TTF"
-    font_path = os.path.join("fonts", filename)
+    # Try different common cases for Arial filenames
+    bold_candidates = ["ARIALBD.TTF", "arialbd.ttf", "Arialbd.ttf", "Arial-Bold.ttf"]
+    regular_candidates = ["ARIAL.TTF", "arial.ttf", "Arial.ttf", "Arial-Regular.ttf"]
+    
+    candidates = bold_candidates if bold else regular_candidates
+    
+    # 1. Search in the fonts/ directory
+    for name in candidates:
+        font_path = os.path.join("fonts", name)
+        if os.path.exists(font_path):
+            try:
+                return ImageFont.truetype(font_path, size)
+            except Exception as e:
+                print(f"Failed loading {font_path}: {e}")
 
-    # Check if the file actually exists on the server
-    if not os.path.exists(font_path):
-        print(f"❌ FONT ERROR: Cannot find '{font_path}'. Check capitalization and path on GitHub.")
-        return ImageFont.load_default()
+    # 2. Search root directory as a backup
+    for name in candidates:
+        if os.path.exists(name):
+            try:
+                return ImageFont.truetype(name, size)
+            except Exception as e:
+                print(f"Failed loading {name}: {e}")
 
-    try:
-        return ImageFont.truetype(font_path, size)
-    except Exception as e:
-        print(f"❌ FONT LOAD ERROR: Failed to load '{font_path}' - {e}")
-        return ImageFont.load_default()
+    print("❌ FONT ERROR: Could not find any valid font file in fonts/ folder!")
+    return ImageFont.load_default()
+    
 def shorten(text, length):
     if len(text) <= length:
         return text
