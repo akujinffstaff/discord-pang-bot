@@ -143,9 +143,9 @@ async def create_welcome_card(member):
     ORANGE_COLOR = (235, 138, 38)
     WHITE_COLOR = (255, 255, 255)
 
-    draw.text((WIDTH / 2, 200), f"Welcome to {member.guild.name}!", font=welcome_font, fill=WHITE_COLOR, anchor="mm", stroke_width=2, stroke_fill=(0, 0, 0))
+    draw.text((WIDTH / 2, 200), f"So glad you're here!", font=welcome_font, fill=WHITE_COLOR, anchor="mm", stroke_width=2, stroke_fill=(0, 0, 0))
     draw.text((WIDTH / 2, 418), f"{shorten(member.display_name, 20)}", font=username_font, fill=ORANGE_COLOR, anchor="mm", stroke_width=2, stroke_fill=(0, 0, 0))
-    draw.text((WIDTH / 2, 448), f"Member Count: {member.guild.member_count:,}", font=details_font, fill=WHITE_COLOR, anchor="mm", stroke_width=1, stroke_fill=(0, 0, 0))
+    draw.text((WIDTH / 2, 448), f"You're member # {member.guild.member_count:,}", font=details_font, fill=WHITE_COLOR, anchor="mm", stroke_width=1, stroke_fill=(0, 0, 0))
     draw.text((WIDTH / 2, 475), f"Welcome to {member.guild.name} — Where Forever Begins.", font=small_font, fill=(220, 220, 220), anchor="mm", stroke_width=2, stroke_fill=(0, 0, 0))
 
     output = BytesIO()
