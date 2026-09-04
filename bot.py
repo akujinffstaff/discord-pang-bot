@@ -41,11 +41,14 @@ warnings = {}
 # ============================================================
 
 def get_font(size, bold=False):
+    # Select font file based on weight
+    font_filename = "arlrdbd.ttf" if bold else "arial.ttf"
+    font_path = os.path.join("fonts", font_filename)
+
     try:
-        if bold:
-            return ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", size)
-        return ImageFont.truetype("C:/Windows/Fonts/arial.ttf", size)
-    except Exception:
+        return ImageFont.truetype(font_path, size)
+    except Exception as error:
+        print(f"Failed to load font '{font_path}': {error}")
         return ImageFont.load_default()
 
 def shorten(text, length):
